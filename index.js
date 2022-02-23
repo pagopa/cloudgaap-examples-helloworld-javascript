@@ -11,12 +11,13 @@ const app = express();
 // Configuring express template engine
 app.set("view engine", "ejs");
 
+app.use(morgan("dev"));
+
 // Create main router
 const router = express.Router();
 
 // Middlewares
 router.use(express.urlencoded({ extended: true }));
-router.use(morgan("dev"));
 
 // Serve static files
 router.use(express.static(path.join(__dirname, "public")));
@@ -28,5 +29,7 @@ app.use(CGAAP_BASE_PATH, router);
 
 // Start server
 app.listen(SERVER_PORT, () => {
-  console.log(`Application started, listening on port ${SERVER_PORT}`);
+  console.log(
+    `Application started, listening on port ${SERVER_PORT} with base path ${CGAAP_BASE_PATH}`
+  );
 });
